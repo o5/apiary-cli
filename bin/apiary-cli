@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+
+const info = require('./../package.json');
+const program = require('commander');
+
+program
+    .version(info.version)
+    .description(info.description)
+    .parse(process.argv);

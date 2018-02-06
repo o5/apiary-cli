@@ -1,0 +1,29 @@
+{
+  "name": "apiary-cli",
+  "version": "0.0.1",
+  "description": "A command-line client for Apiary API",
+  "license": "MIT",
+  "author": "Petr Bugyík",
+  "bin": "./bin/apiary-cli",
+  "main": "./src/client.js",
+  "engines": {
+    "node": ">=9.5"
+  },
+  "dependencies": {
+    "commander": "~2.14.0"
+  },
+  "devDependencies": {
+    "eslint": "~4.17.0",
+    "eslint-config-airbnb": "~16.1.0",
+    "eslint-plugin-import": "~2.8.0",
+    "eslint-plugin-jsx-a11y": "~6.0.3",
+    "eslint-plugin-react": "~7.6.1"
+  },
+  "scripts": {
+    "cs": "eslint --color bin/* src/ test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/o5/apiary-cli.git"
+  }
+}
