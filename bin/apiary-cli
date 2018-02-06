@@ -2,8 +2,48 @@
 
 const info = require('./../package.json');
 const program = require('commander');
+const client = require('../src/client');
+
+let stdin = '';
 
 program
     .version(info.version)
-    .description(info.description)
-    .parse(process.argv);
+    .description(info.description);
+
+program
+    .command('user-api-list')
+    .description("print a user's list of APIs from apiary.io")
+    .action(async () => {
+        try {
+            const list = await (new client()).getUserApiList();
+            console.log(list); // eslint-disable-line no-console
+            process.exit(0);
+        } catch (error) {
+            console.error(error.message); // eslint-disable-line no-console
+            process.exit(1);
+        }
+    });
+
+program
+    .command('publish-blueprint <api-subdomain>')
+    .description('publish an API Blueprint to apiary.io (requires input from STDIN)')
+    .action((apiSubdomain) => {
+        if (!stdin) {
+            console.error('Please use STDIN for API Blueprint document'); // eslint-disable-line no-console
+            process.exit(1);
+        }
+
+        (new client()).publishBlueprint(apiSubdomain, stdin);
+    });
+
+if (process.stdin.isTTY) {
+    program.parse(process.argv);
+} else {
+    process.stdin.on('data', (chunk) => {
+        stdin += chunk;
+    });
+
+    process.stdin.on('end', () => {
+        program.parse(process.argv);
+    });
+}

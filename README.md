@@ -7,7 +7,7 @@ A command-line client for Apiary API.
 **$ apiary-cli --help**
 
 ```bash
-Usage: apiary-cli [options]
+Usage: apiary-cli [options] [command]
 
   A command-line client for Apiary API
 
@@ -16,6 +16,12 @@ Usage: apiary-cli [options]
 
     -V, --version  output the version number
     -h, --help     output usage information
+
+
+  Commands:
+
+    user-api-list                      print a user's list of APIs from apiary.io
+    publish-blueprint <api-subdomain>  publish an API Blueprint to apiary.io (requires input from STDIN)
 ```
 
 ## Contributing
