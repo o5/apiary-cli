@@ -1,0 +1,37 @@
+language: node_js
+node_js: 6
+
+services:
+    - docker
+
+before_install:
+    - docker --version
+    - docker build -t bugyik/apiary-cli:${TRAVIS_COMMIT} .
+    - docker run --detach --entrypoint=/bin/sh --name ${TRAVIS_COMMIT} bugyik/apiary-cli:${TRAVIS_COMMIT} -c 'while true; do sleep 1; done;'
+    - docker exec -it ${TRAVIS_COMMIT} npm install
+    - npm install --global coveralls@2.11.15
+
+script:
+    - docker exec -it ${TRAVIS_COMMIT} npm run cs
+    - docker exec -it ${TRAVIS_COMMIT} npm run mock
+    - docker exec -it ${TRAVIS_COMMIT} sh -c "./node_modules/nyc/bin/nyc.js npm run test > /dev/null && ./node_modules/nyc/bin/nyc.js report --reporter=text-lcov" | coveralls
+
+after_success:
+    - if [ "$TRAVIS_BRANCH" == "master" ]; then
+        VERSION=$(git describe | sed 's/^v//');
+        echo $VERSION;
+        docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}";
+        docker tag bugyik/apiary-cli:${TRAVIS_COMMIT} bugyik/apiary-cli:${VERSION};
+        docker tag bugyik/apiary-cli:${TRAVIS_COMMIT} bugyik/apiary-cli:latest;
+        docker push bugyik/apiary-cli:${VERSION};
+        docker push bugyik/apiary-cli:latest;
+        fi
+
+deploy:
+    provider: npm
+    email: ${NPM_KEY}
+    api_key:
+        secure: ${NPM_EMAIL}
+    on:
+        tags: true
+        repo: o5/apiary-cli
