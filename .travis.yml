@@ -14,7 +14,7 @@ before_install:
 script:
     - docker exec -it ${TRAVIS_COMMIT} npm run cs
     - docker exec -it ${TRAVIS_COMMIT} npm run mock &
-    - docker exec -it ${TRAVIS_COMMIT} sh -c "./node_modules/nyc/bin/nyc.js npm run test > /dev/null && ./node_modules/nyc/bin/nyc.js report --reporter=text-lcov" | coveralls
+    - docker exec ${TRAVIS_COMMIT} sh -c "./node_modules/nyc/bin/nyc.js npm run test > /dev/null && ./node_modules/nyc/bin/nyc.js report --reporter=text-lcov" | coveralls
 
 after_success:
     - if [ "$TRAVIS_BRANCH" == "master" ]; then
