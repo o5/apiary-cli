@@ -1,40 +1,20 @@
+const axios = require('axios');
+
 class Client {
-    getUserApiList() {
-        return {
-            apis: [
-                {
-                    apiName: 'Public Personal API',
-                    apiDocumentationUrl: 'http://docs.publicpersonalapi.apiary.io/',
-                    apiSubdomain: 'publicpersonalapi',
-                    apiIsPrivate: false,
-                    apiIsPublic: true,
-                    apiIsTeam: false,
-                    apiIsPersonal: true,
-                },
-                {
-                    apiName: 'Public Team API',
-                    apiDocumentationUrl: 'http://docs.publicteamapi.apiary.io/',
-                    apiSubdomain: 'publicteamapi',
-                    apiIsPrivate: false,
-                    apiIsPublic: true,
-                    apiIsTeam: true,
-                    apiIsPersonal: false,
-                },
-                {
-                    apiName: 'Private Team API',
-                    apiDocumentationUrl: 'http://docs.privateteamapi.apiary.io/',
-                    apiSubdomain: 'privateteamapi',
-                    apiIsPrivate: true,
-                    apiIsPublic: false,
-                    apiIsTeam: true,
-                    apiIsPersonal: false,
-                },
-            ],
-        };
+    constructor(apiHost, bearer, token) {
+        axios.defaults.baseURL = apiHost;
+
+        axios.defaults.headers.common.authorization = `bearer ${bearer}`;
+        axios.defaults.headers.common.authentication = `Token ${token}`;
     }
 
-    publishBlueprint(apiSubdomain, stdin) {
-        console.log(apiSubdomain, stdin); // eslint-disable-line no-console
+    async getUserApiList() {
+        const response = await axios.get('/me/apis');
+        return response.data;
+    }
+
+    async publishBlueprint(apiSubDomain, stdin) {
+        await axios.post(`/blueprint/publish/${apiSubDomain}`, { code: stdin });
     }
 }
 

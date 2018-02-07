@@ -2,20 +2,28 @@
 
 const info = require('./../package.json');
 const program = require('commander');
-const client = require('../src/client');
+const cache = require('./../tmp/cache');
+
+const client = () => {
+    const c = require('../src/client'); // eslint-disable-line global-require
+    return new c(program.apiHost, program.bearer, program.token);
+};
 
 let stdin = '';
 
 program
     .version(info.version)
-    .description(info.description);
+    .description(info.description)
+    .option('--api-host [apiHost]', 'set API host', 'https://api.apiary.io')
+    .option('--bearer [bearer]', 'set authorization token', cache.bearer)
+    .option('--token [token]', 'set authentication token', cache.token);
 
 program
     .command('user-api-list')
     .description("print a user's list of APIs from apiary.io")
     .action(async () => {
         try {
-            const list = await (new client()).getUserApiList();
+            const list = await client().getUserApiList();
             console.log(list); // eslint-disable-line no-console
             process.exit(0);
         } catch (error) {
@@ -27,13 +35,20 @@ program
 program
     .command('publish-blueprint <api-subdomain>')
     .description('publish an API Blueprint to apiary.io (requires input from STDIN)')
-    .action((apiSubdomain) => {
+    .action(async (apiSubdomain) => {
         if (!stdin) {
             console.error('Please use STDIN for API Blueprint document'); // eslint-disable-line no-console
             process.exit(1);
         }
 
-        (new client()).publishBlueprint(apiSubdomain, stdin);
+        try {
+            await client().publishBlueprint(apiSubdomain, stdin);
+            console.log(`API Blueprint [${apiSubdomain}] has been successfully published!`); // eslint-disable-line no-console
+            process.exit(0);
+        } catch (error) {
+            console.error(error.message); // eslint-disable-line no-console
+            process.exit(1);
+        }
     });
 
 if (process.stdin.isTTY) {
