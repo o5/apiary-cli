@@ -20,7 +20,7 @@ after_success:
     - if [ "$TRAVIS_BRANCH" == "master" ]; then
         VERSION=$(git describe | sed 's/^v//');
         echo $VERSION;
-        docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}";
+        echo ${DOCKER_PASSWORD} | docker login --username "${DOCKER_USERNAME}" --password-stdin;
         docker tag bugyik/apiary-cli:${TRAVIS_COMMIT} bugyik/apiary-cli:${VERSION};
         docker tag bugyik/apiary-cli:${TRAVIS_COMMIT} bugyik/apiary-cli:latest;
         docker push bugyik/apiary-cli:${VERSION};
