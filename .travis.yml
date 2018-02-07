@@ -9,12 +9,12 @@ before_install:
     - docker build -t bugyik/apiary-cli:${TRAVIS_COMMIT} .
     - docker run --detach --entrypoint=/bin/sh --name ${TRAVIS_COMMIT} bugyik/apiary-cli:${TRAVIS_COMMIT} -c 'while true; do sleep 1; done;'
     - docker exec -it ${TRAVIS_COMMIT} npm install
-    - npm install --global coveralls@2.11.15
 
 script:
     - docker exec -it ${TRAVIS_COMMIT} npm run cs
-    - docker exec -it ${TRAVIS_COMMIT} npm run mock &
-    - docker exec ${TRAVIS_COMMIT} sh -c "./node_modules/nyc/bin/nyc.js npm run test > /dev/null && ./node_modules/nyc/bin/nyc.js report --reporter=text-lcov" | coveralls
+    - docker exec ${TRAVIS_COMMIT} sh -c "npm run mock" &
+    - sleep 3
+    - docker exec -it ${TRAVIS_COMMIT} npm run test
 
 after_success:
     - if [ "$TRAVIS_BRANCH" == "master" ]; then
