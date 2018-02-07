@@ -1,4 +1,8 @@
 # apiary-cli
+[![build status][img-build-status]][link-build-status]
+![version][img-version]
+[![docker pulls][img-docker-layers]][link-microbadger]
+[![docker pulls][img-docker-pulls]][link-registry]
 
 A command-line client for [Apiary API][link-apiary-api].
 
@@ -73,9 +77,17 @@ $ npm run cs
 ## License
 MIT @ [Petr Bugyík][link-twitter]
 
+[link-build-status]: https://travis-ci.org/o5/apiary-cli
+[link-microbadger]: https://microbadger.com/images/bugyik/apiary-cli
+[link-registry]: https://hub.docker.com/r/bugyik/apiary-cli
 [link-apiary-api]: https://apiary.docs.apiary.io
 [link-apiary-api-auth]: https://apiary.docs.apiary.io/#reference/authentication/authorization-tokens/create-an-authorization-token
-[link-issues]: https://github.com/o5/apib2json/issues
+[link-issues]: https://github.com/o5/apiary-cli/issues
 [link-nvm]: https://github.com/creationix/nvm
 [link-docker-ce]: https://www.docker.com/community-edition
 [link-twitter]: https://twitter.com/bugyik
+
+[img-build-status]: https://img.shields.io/travis/o5/apiary-cli/master.svg
+[img-version]: https://img.shields.io/github/tag/o5/apiary-cli.svg
+[img-docker-pulls]: https://img.shields.io/docker/pulls/bugyik/apiary-cli.svg
+[img-docker-layers]: https://images.microbadger.com/badges/image/bugyik/apiary-cli.svg
