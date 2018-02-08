@@ -48,7 +48,7 @@ app.post('/blueprint/publish/:apiSubDomain', (req, res) => {
         return;
     }
 
-    if (req.headers.authentication.startsWith('token')) {
+    if (!req.headers.authentication.startsWith('Token')) {
         console.error('NOTE for Apiary Guys: "Token" SHOULD NOT be case-sensitive'); // eslint-disable-line no-console
         res.status(501).end();
         return;
