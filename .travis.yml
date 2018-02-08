@@ -14,7 +14,7 @@ script:
     - docker exec -it ${TRAVIS_COMMIT} npm run cs
     - docker exec ${TRAVIS_COMMIT} sh -c "npm run mock" &
     - sleep 3
-    - docker exec -it ${TRAVIS_COMMIT} npm run test
+    - docker exec -it ${TRAVIS_COMMIT} npm run coverage
 
 after_success:
     - if [ "$TRAVIS_BRANCH" == "master" ]; then
