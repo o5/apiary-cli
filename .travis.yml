@@ -29,9 +29,9 @@ after_success:
 
 deploy:
     provider: npm
-    email: ${NPM_KEY}
+    email: ${NPM_EMAIL}
     api_key:
-        secure: ${NPM_EMAIL}
+        secure: ${NPM_KEY}
     on:
         tags: true
         repo: o5/apiary-cli
