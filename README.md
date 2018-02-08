@@ -1,6 +1,8 @@
 # apiary-cli
+
+[![NPM info][img-npm-stats]][npm-url]
+
 [![build status][img-build-status]][link-build-status]
-![version][img-version]
 [![docker pulls][img-docker-layers]][link-microbadger]
 [![docker pulls][img-docker-pulls]][link-registry]
 
@@ -91,6 +93,7 @@ $ npm run cs
 ## License
 MIT @ [Petr Bugyík][link-twitter]
 
+[npm-url]: https://npmjs.org/package/apiary-cli
 [link-build-status]: https://travis-ci.org/o5/apiary-cli
 [link-microbadger]: https://microbadger.com/images/bugyik/apiary-cli
 [link-registry]: https://hub.docker.com/r/bugyik/apiary-cli
@@ -101,7 +104,7 @@ MIT @ [Petr Bugyík][link-twitter]
 [link-docker-ce]: https://www.docker.com/community-edition
 [link-twitter]: https://twitter.com/bugyik
 
+[img-npm-stats]: https://nodei.co/npm/apiary-cli.svg?downloads=true
 [img-build-status]: https://img.shields.io/travis/o5/apiary-cli/master.svg
-[img-version]: https://img.shields.io/github/tag/o5/apiary-cli.svg
 [img-docker-pulls]: https://img.shields.io/docker/pulls/bugyik/apiary-cli.svg
 [img-docker-layers]: https://images.microbadger.com/badges/image/bugyik/apiary-cli.svg
