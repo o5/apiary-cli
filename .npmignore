@@ -1,0 +1,6 @@
+test
+.eslintrc
+.travis.yml
+docker-compose.yml
+Dockerfile
+*.md
