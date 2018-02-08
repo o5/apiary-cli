@@ -6,6 +6,20 @@
 
 A command-line client for [Apiary API][link-apiary-api].
 
+## Installing
+
+Using npm:
+
+```bash
+$ npm install --global apiary-cli
+```
+
+Using docker:
+
+```bash
+$ docker run --rm bugyik/apiary-cli --help
+```
+
 ## Usage
 
 **$ apiary-cli --help**
